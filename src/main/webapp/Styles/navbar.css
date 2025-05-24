@@ -1,0 +1,29 @@
+*{
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem 6rem 1.5rem 3rem;
+    align-items: center;
+    border-bottom-right-radius: 10rem;
+    background-color: #101010;
+}
+#brand-name{
+    color: white;
+    font-size: 3rem;
+    font-family: "Kumar One";
+}
+.pages-links{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    &>li>a{
+        color: white;
+        font-family: "Jost";
+    }
+}
