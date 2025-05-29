@@ -1,0 +1,10 @@
+#footer{
+    background-color: #101010;
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem 0;
+    color: white;
+    &>a{
+        color: white;
+    }
+}

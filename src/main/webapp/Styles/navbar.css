@@ -11,7 +11,8 @@
     padding: 1.5rem 6rem 1.5rem 3rem;
     align-items: center;
     border-bottom-right-radius: 10rem;
-    background-color: #101010;
+    background-color: hsla(0 0% 8.5% / 0.84);
+
 }
 #brand-name{
     color: white;
