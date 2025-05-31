@@ -26,5 +26,6 @@
     &>li>a{
         color: white;
         font-family: "Jost";
+        font-size: 1.2rem;
     }
 }
