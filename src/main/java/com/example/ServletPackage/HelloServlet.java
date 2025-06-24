@@ -1,4 +1,4 @@
-package com.example.distillademo;
+package com.example.ServletPackage;
 
 import java.io.*;
 
