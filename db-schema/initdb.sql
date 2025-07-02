@@ -1,16 +1,17 @@
-create or replace database distilla_database;
+create database distilla_database;
 
 use distilla_database;
 
-create or replace table Product (
+create table Product (
        id int not null unique auto_increment,
        name varchar(20) not null,
+       description text default "",
        alcohol_percentage decimal(2, 2),
        available bit not null default(0),
        quantity int not null default(0), -- quantità disponibile al momento
        primary key(id)
 );
-create or replace table ProductPrices (
+create table ProductPrices (
        id int not null unique auto_increment,
        product int not null,
        price decimal(4, 2) not null,
@@ -23,12 +24,12 @@ create or replace table ProductPrices (
        primary key (id),
        foreign key (product) references Product(id),
 );
-create or replace table ProductTypes (
+create table ProductTypes (
        id int not null unique auto_increment,
        name varchar(20),
        primary key (id)
 );
-create or replace table ProductTags (
+create table ProductTags (
        id int not null unique auto_increment,
        product int not null,
        type int null,
@@ -37,18 +38,20 @@ create or replace table ProductTags (
        foreign key(type) references ProductTypes(id)
 );
 
-create or replace table User (
+create table User (
        id int not null unique auto_increment,
        username varchar(20) not null,
        email varchar(254) not null, -- per RFC 2821 and RFC 3696
        creation time not null,
        primary key(id)       
 );
-create or replace table Cart (
+
+create table Cart (
        id int not null unique auto_increment,
        user int not null,
-),
-create or replace table CartItem (
+);
+
+create table CartItem (
        id int not null unique auto_increment,
        cart int not null unique,
        product int not null,
@@ -56,4 +59,24 @@ create or replace table CartItem (
        primary key(id),
        foreign key(cart) references Cart(id),
        foreign key(product) references ProductPrices(id)
+);
+
+create table Comment (
+       id int not null unique auto_increment,
+       commenter User not null,
+       comment text not null,
+       publication time not null,
+       stars int not null,
+       primary key (id),
+       foreign key (commenter) references User(id),
+       constraint valid_stars_check check ((stars >= 0) or (stars <= 5))       
+);
+
+create table CommentResponse (
+       id int not null unique auto_increment,
+       comment text not null,
+       response_to int not null,
+       publication time not null,
+       primary key (id),
+       foreign key (response_to) references Comment(id),
 );
