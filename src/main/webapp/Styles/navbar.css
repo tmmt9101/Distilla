@@ -14,11 +14,6 @@
     background-color: hsla(0 0% 8.5% / 0.84);
 
 }
-#brand-name{
-    color: white;
-    font-size: 3rem;
-    font-family: "Kumar One";
-}
 .pages-links{
     display: flex;
     flex-direction: row;
@@ -28,4 +23,9 @@
         font-family: "Jost";
         font-size: 1.2rem;
     }
+}
+#brand-name{
+    color: white;
+    font-size: 3rem;
+    font-family: "Kumar One";
 }

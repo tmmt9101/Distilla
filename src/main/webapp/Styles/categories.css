@@ -1,0 +1,38 @@
+.shop-categories {
+    display: flex;
+    justify-content: center;
+    /*gap: 20px;*/
+    padding: 40px 0;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+#birre{
+
+    border-radius: 12px 0px 0px 12px;
+}
+#liquori{
+
+    border-radius: 0px 12px 12px 0px;
+}
+
+.category-box {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+    padding: 20px;
+    background-color: hsla(85 0% 100% / 0.70);
+    text-decoration: none;
+    color: black;
+    font-family: "Jost";
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+
+}
+
+.category-box:hover {
+    background-color: white;
+    transform: translateY(-4px);
+}
