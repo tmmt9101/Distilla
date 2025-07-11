@@ -61,6 +61,16 @@ create table CartItem (
        foreign key(product) references ProductPrices(id)
 );
 
+create table ProductOffer (
+       id int not null unique auto_increment,
+       product int not null,
+       product_price int not null,
+       description text default "",
+       primary key(id),
+       foreign key(product) references Product(id),
+       foreign key(product_price) references ProductPrices(id)
+);      
+
 create table Comment (
        id int not null unique auto_increment,
        commenter User not null,
