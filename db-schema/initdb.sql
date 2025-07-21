@@ -11,6 +11,7 @@ create table Product (
        quantity int not null default(0), -- quantità disponibile al momento
        primary key(id)
 );
+
 create table ProductPrices (
        id int not null unique auto_increment,
        product int not null,
@@ -22,13 +23,15 @@ create table ProductPrices (
         ((validity_start is null and validity_end is not null) and
          (validity_start < validity_end))),
        primary key (id),
-       foreign key (product) references Product(id),
+       foreign key (product) references Product(id)
 );
+
 create table ProductTypes (
        id int not null unique auto_increment,
        name varchar(20),
        primary key (id)
 );
+
 create table ProductTags (
        id int not null unique auto_increment,
        product int not null,
@@ -43,12 +46,14 @@ create table User (
        username varchar(20) not null,
        email varchar(254) not null, -- per RFC 2821 and RFC 3696
        creation time not null,
-       primary key(id)       
+       primary key(id)
 );
 
 create table Cart (
        id int not null unique auto_increment,
        user int not null,
+       primary key (id),
+       foreign key (user) references User(id)
 );
 
 create table CartItem (
@@ -69,17 +74,17 @@ create table ProductOffer (
        primary key(id),
        foreign key(product) references Product(id),
        foreign key(product_price) references ProductPrices(id)
-);      
+);
 
 create table Comment (
        id int not null unique auto_increment,
-       commenter User not null,
+       commenter int not null,
        comment text not null,
        publication time not null,
        stars int not null,
        primary key (id),
        foreign key (commenter) references User(id),
-       constraint valid_stars_check check ((stars >= 0) or (stars <= 5))       
+       constraint valid_stars_check check ((stars >= 0) or (stars <= 5))
 );
 
 create table CommentResponse (
@@ -88,5 +93,5 @@ create table CommentResponse (
        response_to int not null,
        publication time not null,
        primary key (id),
-       foreign key (response_to) references Comment(id),
+       foreign key (response_to) references Comment(id)
 );

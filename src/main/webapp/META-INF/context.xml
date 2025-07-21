@@ -1,0 +1,12 @@
+<Context>
+  <Resource name="jdbc/database"
+            auth="Container"
+            type="javax.sql.DataSource"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://127.0.0.1:3306/distilla_database"
+            username="root"
+            password="root"
+            maxTotal="20"
+            maxIdle="10"
+            maxWaitMillis="-1"/>
+</Context>

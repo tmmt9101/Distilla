@@ -20,31 +20,30 @@ import java.util.Optional;
  */
 public final  class ProductPrices {
     private final Integer         id;
-    private final Product         product;
     private final Float           price;
     private final Optional<Time>  validity_start;
     private final Optional<Time>  validity_end;
 
-    public ProductPrices(Integer        id,             
-                         Product        product,        
-                         Float          price,          
-                         Optional<Time> validity_start, 
-                         Optional<Time> validity_end) {
-        this.id             = id;             
-        this.product        = product;                
-        this.price          = price;          
-        this.validity_start = validity_start;         
-        this.validity_end   = validity_end;   
+    public ProductPrices(Integer        id,
+                         // Product        product,
+                         Float          price,
+                         Time validity_start,
+                         Time validity_end) {
+        this.id             = id;
+        // this.product        = product;
+        this.price          = price;
+        this.validity_start = Optional.ofNullable(validity_start);
+        this.validity_end   = Optional.ofNullable(validity_end);
     }
-    
+
     public Boolean valid() {
-        return (validity_start.isEmpty() && validity_end.isEmpty()) 
+        return (validity_start.isEmpty() && validity_end.isEmpty())
             || (validity_start.isEmpty() && validity_end.isPresent())
             || (validity_start.get().before(validity_end.get()));
     }
 
     public Integer getId() { return id; }
-    public Product getProduct() { return product; }
+    // public Product getProduct() { return product; }
     public Optional<Time> getValidity_start() { return validity_start; }
     public Float getPrice() { return price; }
     public Optional<Time> getValidity_end() { return validity_end; }
