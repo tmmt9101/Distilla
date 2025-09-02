@@ -6,9 +6,8 @@ import java.util.Optional;
 
 
 public interface Dao<T, Id> {
-    public Optional<T>       getById(Id id)           throws SQLException;
-    public void              save(T object)           throws SQLException;
-    public void              remove(Id object)         throws SQLException;
-    public void              update(Id old, T object) throws SQLException;
-    public List<T>           getAll()                 throws SQLException;
+    public Optional<T> getById(Id id)    throws SQLException;
+    public void        save(T object)    throws SQLException;
+    public void        remove(Id object) throws SQLException;
+    public List<T>     getAll()          throws SQLException;
 }

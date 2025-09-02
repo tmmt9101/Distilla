@@ -26,21 +26,41 @@ public class ProductPricesDAO implements Dao<ProductPrices, Integer> {
         FROM ProductPrices
         WHERE product = ?
         """;
+    private static final String update =
+        """
+        UPDATE ProductPrices
+        SET product        = ?,
+            price          = ?,
+            validity_start = ?,
+            validity_end   = ?
+        WHERE id = ?
+        """;
+    private static final String save =
+        """
+        INSERT INTO ProductPrices(product, price, validity_start, validity_end)
+        VALUES (?, ?, ?, ?);
+        """;
+    private static final String remove = "DELETE FROM ProductPrices WHERE id = ?";
     public ProductPricesDAO(DataSource source) {
         this.source = source;
     }
     @Override
-    public void update(Integer id, ProductPrices object) throws SQLException {
-        // TODO Auto-generated method stub
-    }
-    @Override
     public void save(ProductPrices object) throws SQLException {
-        // TODO Auto-generated method stub
+        try (var con       = source.getConnection();
+             var statement = con.prepareStatement(save);) {
+            statement.executeUpdate();
+        }
     }
 
+    public void remove(ProductPrices object) throws SQLException {
+        this.remove(object.id());
+    }
     @Override
     public void remove(Integer object) throws SQLException {
-        // TODO Auto-generated method stub
+        try (var conn      = source.getConnection();
+             var statement = conn.prepareStatement(remove)) {
+            statement.setInt(1, object.intValue());
+        }
     }
     @Override
     public List<ProductPrices> getAll() throws SQLException {
@@ -51,8 +71,8 @@ public class ProductPricesDAO implements Dao<ProductPrices, Integer> {
             while (result.next()) {
                 data.add(new ProductPrices(Integer.valueOf(result.getInt("id")),
                                            Float.valueOf(result.getFloat("price")),
-                                           result.getTime("validity_start"),
-                                           result.getTime("validity_start")));
+                                           result.getTimestamp("validity_start"),
+                                           result.getTimestamp("validity_start")));
             }
         }
         return data;
@@ -65,9 +85,9 @@ public class ProductPricesDAO implements Dao<ProductPrices, Integer> {
             var result      = statement.executeQuery();
             if (result.next()) {
                 return Optional.of(new ProductPrices(id,
-                                         Float.valueOf(result.getFloat(2)),
-                                         result.getTime(4),
-                                              result.getTime(5)));
+                                                     Float.valueOf(result.getFloat(2)),
+                                                     result.getTimestamp(4),
+                                                     result.getTimestamp(5)));
             }
         }
         return Optional.empty();
@@ -81,8 +101,8 @@ public class ProductPricesDAO implements Dao<ProductPrices, Integer> {
             while (result.next()) {
                 price.add(new ProductPrices(Integer.valueOf(result.getInt(1)),
                                             Float.valueOf(result.getFloat(3)),
-                                            result.getTime(4),
-                                            result.getTime(5)));
+                                            result.getTimestamp(4),
+                                            result.getTimestamp(5)));
             }
         }
         return price;

@@ -6,7 +6,7 @@ create table Product (
        id int not null unique auto_increment,
        name varchar(20) not null,
        description text default "",
-       alcohol_percentage decimal(2, 2),
+       alcohol_percentage decimal(4, 2),
        available bit not null default(0),
        quantity int not null default(0), -- quantità disponibile al momento
        primary key(id)
@@ -16,8 +16,8 @@ create table ProductPrices (
        id int not null unique auto_increment,
        product int not null,
        price decimal(4, 2) not null,
-       validity_start time,
-       validity_end time,
+       validity_start datetime,
+       validity_end datetime,
        constraint valid_price_check check
        ((validity_start is null and validity_end is null) or
         ((validity_start is null and validity_end is not null) and
@@ -45,7 +45,7 @@ create table User (
        id int not null unique auto_increment,
        username varchar(20) not null,
        email varchar(254) not null, -- per RFC 2821 and RFC 3696
-       creation time not null,
+       creation datetime not null,
        primary key(id)
 );
 
@@ -80,18 +80,16 @@ create table Comment (
        id int not null unique auto_increment,
        commenter int not null,
        comment text not null,
-       publication time not null,
-       stars int not null,
+       publication datetime not null,
        primary key (id),
        foreign key (commenter) references User(id),
-       constraint valid_stars_check check ((stars >= 0) or (stars <= 5))
 );
 
 create table CommentResponse (
        id int not null unique auto_increment,
        comment text not null,
        response_to int not null,
-       publication time not null,
+       publication datetime not null,
        primary key (id),
        foreign key (response_to) references Comment(id)
 );
